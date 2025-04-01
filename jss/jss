@@ -1,0 +1,49 @@
+  document.addEventListener('DOMContentLoaded', function() {
+            // Configurar todos los botones de toggle
+            document.querySelectorAll('.toggle-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Obtener el elemento objetivo
+                    const targetId = this.getAttribute('data-bs-target');
+                    const target = document.querySelector(targetId);
+                    
+                    // Alternar visibilidad
+                    const isHidden = target.style.display === 'none' || 
+                                    target.classList.contains('d-none') || 
+                                    getComputedStyle(target).display === 'none';
+                    
+                    if (isHidden) {
+                        // Mostrar
+                        target.style.display = 'block';
+                        target.classList.remove('d-none');
+                        this.textContent = 'Ocultar información';
+                        // Animación de fade in
+                        target.style.opacity = '0';
+                        setTimeout(() => {
+                            target.style.opacity = '1';
+                            target.style.transition = 'opacity 0.3s ease';
+                        }, 10);
+                    } else {
+                        // Ocultar
+                        target.style.opacity = '0';
+                        target.style.transition = 'opacity 0.3s ease';
+                        setTimeout(() => {
+                            target.style.display = 'none';
+                            target.classList.add('d-none');
+                            this.textContent = 'Ver información';
+                        }, 300);
+                    }
+                });
+            });
+        });
+    // Mantener el efecto del navbar
+    // Efecto de scroll
+window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.glass-nav');
+    if(window.scrollY > 50) {
+        nav.classList.add('scrolled-nav');
+    } else {
+        nav.classList.remove('scrolled-nav');
+    }
+});
